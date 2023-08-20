@@ -5,13 +5,13 @@ function Chats(props) {
   const [message, setMessage] = React.useState("")
 
   // Listen for upcoming data
-  React.useEffect(() => {
+  React.useMemo(() => {
     props.socket.on("receive_m",(data)=>{
       setReceivedM((list)=>[...list, data]);
     });
-    return()=>{
-      props.socket.off("recieve_m").off();
-    }
+    // return()=>{
+    //   props.socket.off("recieve_m").off();
+    // }
     }, [props.socket])
 
   
