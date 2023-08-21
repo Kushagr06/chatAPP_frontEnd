@@ -38,9 +38,9 @@ function App() {
 }, [])
 
 
-  // socket.on("Number",(num)=>{
-  //   setNum(num)
-  // })
+  socket.on("disconnect",()=>{
+    setNum(num-1)
+  })
 
   
 
