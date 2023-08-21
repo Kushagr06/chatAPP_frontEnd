@@ -9,12 +9,16 @@ function App() {
 
   const [room, setRoom] = React.useState("")
   const [id, setId]=React.useState([])
-  const [left,setLeft]=React.useState([])
+  const [num, setNum]=React.useState("")
 
   const joinRoom=()=>{
     if(room!==""){
       socket.emit("join_room",room)
+      socket.on("Number",(data)=>{
+        setNum(data)
+      })
     }
+    
   };
 
   
@@ -24,14 +28,19 @@ function App() {
 
   React.useMemo(() => {
   socket.on("newUser", (data) => {
-    setId((list)=>[...list, `${data} just joined....`]); // world
+    setId((list)=>[...list, 
+      data===socket.id?
+      `${data}(you) just joined....`
+      :
+      `${data} just joined....`
+    ]); // world
   });
 }, [])
 
 
-  // socket.on("leftUser", (data) => {
-  //   setId((list)=>[...list, `${data} has left...`]); // world
-  // });
+  // socket.on("Number",(num)=>{
+  //   setNum(num)
+  // })
 
   
 
@@ -48,8 +57,10 @@ function App() {
       setRoom(event.target.value)
      }}/>
      <button onClick={joinRoom}>Join Room</button>
+     <h1>Number: {num}</h1>
 
      <Chats socket={socket} room={room} />
+     
     </div>
   );
 }
