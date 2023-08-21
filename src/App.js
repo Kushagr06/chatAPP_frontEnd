@@ -9,6 +9,7 @@ function App() {
 
   const [room, setRoom] = React.useState("")
   const [id, setId]=React.useState([])
+  const [left,setLeft]=React.useState([])
 
   const joinRoom=()=>{
     if(room!==""){
@@ -21,11 +22,11 @@ function App() {
   //   setId((list)=>[...list, data]);
   // });
 
-
+  React.useMemo(() => {
   socket.on("newUser", (data) => {
     setId((list)=>[...list, data]); // world
   });
-
+}, [])
   
 
   return (
@@ -34,7 +35,7 @@ function App() {
         {socket.id}
       </h1>
       {id.map((message)=>{
-      return <h1>$_{message}</h1>;
+      return <h1>$_{message}_just joined</h1>;
      })}
 <input placeholder='Room number:' 
      onChange={(event)=>{
