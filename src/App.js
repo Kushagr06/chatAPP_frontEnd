@@ -24,9 +24,15 @@ function App() {
 
   React.useMemo(() => {
   socket.on("newUser", (data) => {
-    setId((list)=>[...list, data]); // world
+    setId((list)=>[...list, `${data} just joined....`]); // world
   });
 }, [])
+
+
+  // socket.on("leftUser", (data) => {
+  //   setId((list)=>[...list, `${data} has left...`]); // world
+  // });
+
   
 
   return (
@@ -35,7 +41,7 @@ function App() {
         {socket.id}
       </h1>
       {id.map((message)=>{
-      return <h1>$_{message}_just joined</h1>;
+      return <h1>$_{message}</h1>;
      })}
 <input placeholder='Room number:' 
      onChange={(event)=>{
