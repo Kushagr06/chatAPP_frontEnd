@@ -8,7 +8,7 @@ const socket=io.connect("http://localhost:3001")
 function App() {
 
   const [room, setRoom] = React.useState("")
-
+  const [id, setId]=React.useState([])
 
   const joinRoom=()=>{
     if(room!==""){
@@ -17,12 +17,25 @@ function App() {
   };
 
   
+  // socket.on('joined_rooms',(data)=>{
+  //   setId((list)=>[...list, data]);
+  // });
+
+
+  socket.on("newUser", (data) => {
+    setId((list)=>[...list, data]); // world
+  });
+
+  
 
   return (
     <div className="App">
       <h1>
         {socket.id}
       </h1>
+      {id.map((message)=>{
+      return <h1>$_{message}</h1>;
+     })}
 <input placeholder='Room number:' 
      onChange={(event)=>{
       setRoom(event.target.value)
