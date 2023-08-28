@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function Chats(props) {
   const [receivedM, setReceivedM] = React.useState([])
@@ -19,7 +19,7 @@ function Chats(props) {
     if(message!==""){
       const MessageData={
         room: props.room,
-        author:props.socket.id,
+        author:'<<'+props.socket.id+'>>' +props.user,
         message:message
       };
     await 
@@ -29,7 +29,6 @@ function Chats(props) {
     }
   };
 
-  
   
 
 
@@ -42,7 +41,7 @@ function Chats(props) {
      <button onClick={sendMessage}>Send Message</button>
        <h1>Messages:</h1>
      {receivedM.map((message)=>{
-      return <h1>{message.author}$_{message.message}</h1>;
+      return <h1>{message.author}{':'} {message.message}</h1>;
      })}
     </div>
   )
