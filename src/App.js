@@ -47,11 +47,11 @@ function App() {
 
 
   React.useMemo(()=>{
-    socket.on("disconnected_user",(id)=>{
+    socket.on("disconnected_user",(id,no)=>{
       setId((list)=>[...list,
         `${id} just left the chat`
       ]);
-      setNum(num-1)
+      setNum(no)
     })
   },[])
   
