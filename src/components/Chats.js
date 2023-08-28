@@ -19,7 +19,7 @@ function Chats(props) {
     if(message!==""){
       const MessageData={
         room: props.room,
-        author:'<<'+props.socket.id+'>>' +props.user,
+        author:props.user,
         message:message
       };
     await 
@@ -41,7 +41,7 @@ function Chats(props) {
      <button onClick={sendMessage}>Send Message</button>
        <h1>Messages:</h1>
      {receivedM.map((message)=>{
-      return <h1>{message.author}{':'} {message.message}</h1>;
+      return <h2> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':>: '}{message.message}</span></h2>;
      })}
     </div>
   )

@@ -48,9 +48,9 @@ function App() {
 
 
   React.useMemo(()=>{
-    socket.on("disconnected_user",(id,no)=>{
+    socket.on("disconnected_user",(id,user,no)=>{
       setId((list)=>[...list,
-        `${id} has left the room`
+        `${'<<'+id+'>>'+user} has left the room`
       ]);
       setNum(no)
     })
@@ -61,25 +61,29 @@ function App() {
 
   return (
     <div className="App">
-      <h1>enter username:</h1>
+      <h1>Participants: {num}</h1>
+      <h1>Current Room: {roomno}</h1>
+
+      <h1>Enter Username:</h1>
 <input placeholder='User Name:' 
      onChange={(event)=>{
       setUserName(event.target.value)
      }}/>
+     
       <h1>
         id: {'<<'+socket.id+'>>'+userName}
       </h1>
       {id.map((message)=>{
-      return <h1>$_{message}</h1>;
+      return <h4>$_{message}</h4>;
      })}
 
-  <h1>Current Room: {roomno}</h1>
+  
 <input placeholder='Room number:' 
      onChange={(event)=>{
       setRoom(event.target.value)
      }}/>
      <button onClick={joinRoom}>Join Room</button>
-     <h1>Number: {num}</h1>
+     
 
      <Chats socket={socket} room={room} user={userName} />
      
