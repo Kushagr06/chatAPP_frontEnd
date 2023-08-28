@@ -1,6 +1,6 @@
 import './App.css';
 import io from 'socket.io-client'
-import React from "react"
+import React, { useEffect } from "react"
 import Chats from './components/Chats';
 
 const socket=io.connect("http://localhost:3001")
@@ -8,6 +8,7 @@ const socket=io.connect("http://localhost:3001")
 function App() {
 
   const [room, setRoom] = React.useState("")
+  const [roomno, setRoomno] = React.useState("")
   const [id, setId]=React.useState([])
   const [num, setNum]=React.useState("")
 
@@ -16,6 +17,7 @@ function App() {
       socket.emit("join_room",room)
       socket.on("Number",(data)=>{
         setNum(data)
+        setRoomno(room)
       })
     }
     
@@ -25,6 +27,12 @@ function App() {
   // socket.on('joined_rooms',(data)=>{
   //   setId((list)=>[...list, data]);
   // });
+  React.useMemo(()=>{
+    socket.on("Number",(data)=>{
+      setNum(data)
+      
+    })
+  },[])
 
   React.useMemo(() => {
   socket.on("newUser", (data) => {
@@ -38,9 +46,15 @@ function App() {
 }, [])
 
 
-  socket.on("disconnect",()=>{
-    setNum(num-1)
-  })
+  React.useMemo(()=>{
+    socket.on("disconnected_user",(id)=>{
+      setId((list)=>[...list,
+        `${id} just left the chat`
+      ]);
+      setNum(num-1)
+    })
+  },[])
+  
 
   
 
@@ -52,6 +66,8 @@ function App() {
       {id.map((message)=>{
       return <h1>$_{message}</h1>;
      })}
+
+  <h1>Current Room: {roomno}</h1>
 <input placeholder='Room number:' 
      onChange={(event)=>{
       setRoom(event.target.value)
