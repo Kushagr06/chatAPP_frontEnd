@@ -33,12 +33,12 @@ function Chats(props) {
 
 
   return (
-    <div>
+    <div className='mt-10'>
         <input placeholder='Enter Message' 
      onChange={(event)=>{
       setMessage(event.target.value)
      }}/>
-     <button onClick={sendMessage}>Send Message</button>
+     <button onClick={sendMessage} className='bg-blue-400 text-gray-300 px-5'>Send Message</button>
        <h1>Messages:</h1>
      {receivedM.map((message)=>{
       return <h2> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':>: '}{message.message}</span></h2>;
