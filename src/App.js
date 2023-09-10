@@ -98,9 +98,9 @@ function App() {
      </div>
 
         {/* chat logs */}
-      <div className=' h-36 w-3/4 bg-gray-800 p-2 rounded-xl text-emerald-400 overflow-auto border-2 border-emerald-400 text-left'>
+      <div className=' h-auto w-3/4 bg-gray-800 p-2 rounded-xl text-emerald-400  border-2 border-emerald-400 text-left'>
       <h2 className='border-2 p-2 border-emerald-400 rounded-xl'>Chat Logs:</h2>
-      <div className='mt-2 text-center'>
+      <div className='mt-2 text-center h-auto max-h-20 overflow-y-scroll'>
       {id.map((message)=>{
       return <h4>{'=> : '+ message}</h4>;
      })}
