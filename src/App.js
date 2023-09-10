@@ -102,7 +102,7 @@ function App() {
       <h2 className='border-2 p-2 border-emerald-400 rounded-xl'>Chat Logs:</h2>
       <div className='mt-2 text-center h-auto max-h-20 overflow-auto'>
       {id.map((message)=>{
-      return <h4>{'=> : '+ message}</h4>;
+      return <h4 id={message.includes("left")?'receiver':'host'}>{'=>_'+ message}</h4>;
      })}
      </div>
      </div>

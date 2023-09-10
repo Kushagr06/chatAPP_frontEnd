@@ -57,7 +57,7 @@ function Chats(props) {
      <div className=' flex-col flex-grow m-10 border-4 min-h-[20vh] h-auto border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto max-h-[35vh]'>
        <h1 className='text-emerald-400 text-left border-2 rounded-xl p-2 border-emerald-400'>Messages:</h1>
      {receivedM.map((message)=>{
-      return <h2> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':>: '}{message.message}</span></h2>;
+      return <h2> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':>_'}{message.message}</span></h2>;
      })}
     </div>
     </div>
