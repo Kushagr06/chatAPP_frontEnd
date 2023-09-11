@@ -22,6 +22,7 @@ function Chats(props) {
   
   const sendMessage=async(e)=>{
     e.preventDefault();
+    
     if(message!==""){
       const MessageData={
         room: props.room,
@@ -31,7 +32,6 @@ function Chats(props) {
     await 
     props.socket.emit("send_m",MessageData);
     setReceivedM((list)=>[...list, MessageData]);
-    setMessage("");
     }
   };
 
@@ -68,6 +68,7 @@ function Chats(props) {
           </button>
 
         <input
+        id="inputBar"
         style={style} 
         placeholder='Enter Message'
         className='bg-gray-600 mx-2 w-1/2 h-16 border-2 text-gray-100 px-2' 
@@ -76,8 +77,7 @@ function Chats(props) {
         setStyle({border:'1px solid gray'});
       else
         setStyle({border:'2px solid #34d399'});
-
-      setMessage(event.target.value)
+        setMessage(event.target.value)
      }}/>
 
      <button type="submit" className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1  rounded-xl' >
@@ -90,7 +90,7 @@ function Chats(props) {
 
 
      {/* Messages */}
-     <div>
+     <div className=' bg-gray-900 mb-auto'>
      <div className=' flex-col flex-grow m-10 border-4 min-h-[20vh] h-auto border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto max-h-[35vh]'>
        <h1 className='text-emerald-400 text-left border-2 rounded-xl p-2 border-emerald-400'>Messages:</h1>
        <div id="Messages">
