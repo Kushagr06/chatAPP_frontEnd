@@ -49,15 +49,16 @@ function Chats(props) {
         <form onSubmit={sendMessage} className='flex justify-center'>
 
           {/* download chats */}
-        <button type="button" id={props.user===""?"disabled-button":"enabled-button"} disabled={props.user===""?true:false} className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1  rounded-xl' onClick={()=>{
+        <button type="button" id={props.user!==""?"enabled-button":"disabled-button"} disabled={props.user!==""?false:true} className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1  rounded-xl' onClick={()=>{
+          
+          
           props.socket.emit("download_chats",props.user)
           var data=[...receivedM]
-
-          // Fix Download button
+          console.log(data)
           const element = document.createElement("a");
-          const file = new Blob([document.getElementById('Messages').value], {type: 'text/plain'});
+          const file = new Blob([JSON.stringify(data)], {type: 'text/json'});
           element.href = URL.createObjectURL(file);
-          element.download = "myFile.txt";
+          element.download = "ChatLogs.txt";
           document.body.appendChild(element); // Required for this to work in FireFox
           element.click();
         }

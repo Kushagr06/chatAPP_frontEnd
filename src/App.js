@@ -99,7 +99,7 @@ function App() {
         {/* logs */}
       <div className=' h-auto w-3/4 bg-gray-800 p-2 rounded-xl text-emerald-400  border-2 border-emerald-400 text-left'>
       <h2 className='border-2 p-2 border-emerald-400 rounded-xl'>Log:</h2>
-      <div className='mt-2 text-center h-auto max-h-20 overflow-auto'>
+      <div className='mt-2 text-center h-auto max-h-24 overflow-auto'>
       {id.map((message)=>{
       return <h4 id={message.includes("left")?'receiver':message.includes("you")?'your':'host'}>{ message}</h4>;
      })}
@@ -107,9 +107,6 @@ function App() {
      </div>
      </div>
 
-  
-
-     
 
      <Chats socket={socket} room={room} user={userName} />
      
