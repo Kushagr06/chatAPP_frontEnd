@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useRef} from 'react'
 
 function Chats(props) {
   const [receivedM, setReceivedM] = React.useState([])
@@ -21,8 +21,8 @@ function Chats(props) {
 
   
   const sendMessage=async(e)=>{
+    document.getElementById('inputBar').value=" ";
     e.preventDefault();
-    
     if(message!==""){
       const MessageData={
         room: props.room,
@@ -33,15 +33,25 @@ function Chats(props) {
     props.socket.emit("send_m",MessageData);
     setReceivedM((list)=>[...list, MessageData]);
     }
+   setMessage("") 
   };
 
 
+  // Auto scroll to bottom
+  const ref = useRef(null);
+  const scrollToBottom = () => {
+    ref.current?.scrollIntoView({ behavior: "smooth", duration:"300" })
+  }
+  
+  React.useEffect(() => {
+    scrollToBottom()
+  }, [receivedM]);
 
   
 
 
   return (
-    <div className='mt-10 bg-gray-900 flex-col flex-grow max-h-screen'>
+    <div className='mt-10 bg-gray-900 flex-col flex-grow max-h-screen overflow-auto'>
 
       {/* Message Input Field */}
       
@@ -67,11 +77,12 @@ function Chats(props) {
          <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H12M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17.5 15V21M17.5 21L15 18.5M17.5 21L20 18.5" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </button>
 
+          {/* Input field */}
         <input
         id="inputBar"
         style={style} 
         placeholder='Enter Message'
-        className='bg-gray-600 mx-2 w-1/2 h-16 border-2 text-gray-100 px-2' 
+        className='bg-gray-600 mx-2 w-1/2 duration-200 max-h-32 h-auto overflow-x-scroll overflow-visible  border-2 text-gray-100 px-2' 
      onChange={(event)=>{
       if(event.target.value==='')
         setStyle({border:'1px solid gray'});
@@ -98,6 +109,7 @@ function Chats(props) {
      receivedM.map((message)=>{
       return <h2 className='text-left my-2'> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':> '}{message.message}</span></h2>;
      })}
+     <div ref={ref} />
      </div>
     </div>
     </div>
