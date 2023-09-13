@@ -40,7 +40,7 @@ function Chats(props) {
   // Auto scroll to bottom
   const ref = useRef(null);
   const scrollToBottom = () => {
-    ref.current?.scrollIntoView({ behavior: "smooth", duration:"300" })
+    ref.current?.scrollIntoView({ behavior: "smooth"})
   }
   
   React.useEffect(() => {
@@ -51,12 +51,12 @@ function Chats(props) {
 
 
   return (
-    <div className='mt-10 bg-gray-900 flex-col flex-grow max-h-screen overflow-auto'>
+    <div className='mt-10 bg-gray-900 flex flex-col h-auto'>
 
       {/* Message Input Field */}
       
       <div >
-        <form onSubmit={sendMessage} className='flex justify-center'>
+        <form onSubmit={sendMessage} className='flex justify-center my-5'>
 
           {/* download chats */}
         <button type="button" id={props.user!==""?"enabled-button":"disabled-button"} disabled={props.user!==""?false:true} className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1  rounded-xl' onClick={()=>{
@@ -101,14 +101,17 @@ function Chats(props) {
 
 
      {/* Messages */}
-     <div className=' bg-gray-900 mb-auto'>
-     <div className=' flex-col flex-grow m-10 border-4 min-h-[20vh] h-auto border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto max-h-[35vh]'>
+     <div className=' bg-gray-900 mb-auto relative'>
+      {/* Clear Button */}
+      <button type="button" className=' rounded-full w-10 h-10 bg-emerald-900 absolute right-8 top-2 hover:bg-emerald-500 duration-200 text-gray-300 hover:text-gray-200' onClick={()=> setReceivedM('')}> &#x21bb;</button>
+     <div className=' flex-col flex-grow m-10 border-4  border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto h-[35vh]'>
        <h1 className='text-emerald-400 text-left border-2 rounded-xl p-2 border-emerald-400'>Messages:</h1>
        <div id="Messages">
-    {
+    {receivedM?
      receivedM.map((message)=>{
       return <h2 className='text-left my-2'> <span id={props.user===message.author?'host':'receiver'}>{message.author}{':> '}{message.message}</span></h2>;
-     })}
+     })
+    :""}
      <div ref={ref} />
      </div>
     </div>

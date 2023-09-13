@@ -1,6 +1,6 @@
 import './App.css';
 import io from 'socket.io-client'
-import React from "react"
+import React,{useRef} from "react"
 import Chats from './components/Chats';
 
 const socket=io.connect("http://localhost:3001")
@@ -55,6 +55,15 @@ function App() {
       setNum(no)
     })
   },[])
+
+  const ref=useRef(null);
+  const ScrolltoBottom=()=>{
+    console.log(ref.current)
+    ref.current?.scrollIntoView({behavior:'smooth'})
+  }
+  React.useEffect(()=>{
+    ScrolltoBottom()
+  },[id])
   
 
   
@@ -85,27 +94,39 @@ function App() {
           
      </div>
        
-      <div className='flex justify-center m-5 mt-10' >
+      <div className='flex justify-center mt-10' >
 
          {/* Join Room */}
-     <div className='flex justify-center bg-gray-800 h-24 w-1/2 text-emerald-400 text-center p-5 text-xl font-semibold border-2 border-emerald-400 rounded-xl m-2 duration-300 mt-10 align-middle items-center'>
-     <input className='bg-gray-600 mx-2 px-2' placeholder='Room number:' 
+     <div className='flex justify-center mx-10 bg-gray-800 h-24 w-1/2 text-emerald-400 text-center p-5 text-xl font-semibold border-2 border-emerald-400 rounded-xl m-auto duration-300  align-middle items-center'>
+     <input className='bg-gray-600 px-2' placeholder='Room number:' 
      onChange={(event)=>{
       setRoom(event.target.value)
      }}/>
-     <button disabled={userName===""?true:false} id={userName===""?"disabled-button":"enabled-button"} className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1  rounded-xl' onClick={joinRoom}>Join Room</button>
+     <button disabled={userName===""?true:false} id={userName===""?"disabled-button":"enabled-button"} className=' bg-emerald-900 hover:bg-emerald-500 duration-300 text-gray-300 hover:text-gray-200 px-5 py-1 mx-2  rounded-xl' onClick={joinRoom}>Join Room</button>
      </div>
 
         {/* logs */}
+
+       <div className='w-full relative m-auto mx-10'>
+                    {/* Clear Button */}
+    <button type="button" className=' absolute -left-8 -top-5  rounded-full w-10 h-10 bg-emerald-900 hover:bg-emerald-500 duration-200 text-gray-300 hover:text-gray-200' onClick={()=> setId('')}> &#x21bb;</button>
+
       <div className=' h-auto w-3/4 bg-gray-800 p-2 rounded-xl text-emerald-400  border-2 border-emerald-400 text-left'>
       <h2 className='border-2 p-2 border-emerald-400 rounded-xl'>Log:</h2>
-      <div className='mt-2 text-center h-auto max-h-24 overflow-auto'>
-      {id.map((message)=>{
+      <div className='mt-2 text-center h-auto max-h-[10vh] overflow-auto min-h-[8vh] overflow-y-auto'>
+      {id?
+      id.map((message)=>{
       return <h4 id={message.includes("left")?'receiver':message.includes("you")?'your':'host'}>{ message}</h4>;
-     })}
+     })
+    :""}
+    <div ref={ref} />
      </div>
      </div>
      </div>
+     </div>
+     
+    
+   
 
 
      <Chats socket={socket} room={room} user={userName} />
