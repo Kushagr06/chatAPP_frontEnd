@@ -104,7 +104,7 @@ function Chats(props) {
      <div className=' bg-gray-900 mb-auto relative'>
       {/* Clear Button */}
       <button type="button" className=' rounded-full w-10 h-10 bg-emerald-900 absolute right-8 top-2 hover:bg-emerald-500 duration-200 text-gray-300 hover:text-gray-200' onClick={()=> setReceivedM('')}> &#x21bb;</button>
-     <div className=' flex-col flex-grow m-10 border-4  border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto h-[35vh]'>
+     <div className=' flex-col flex-grow m-10 border-4  border-emerald-400 rounded-xl  p-2 bg-gray-800 overflow-y-auto min-h-[25vh] max-h-[35vh]'>
        <h1 className='text-emerald-400 text-left border-2 rounded-xl p-2 border-emerald-400'>Messages:</h1>
        <div id="Messages">
     {receivedM?
