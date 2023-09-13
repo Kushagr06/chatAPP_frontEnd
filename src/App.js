@@ -13,9 +13,12 @@ function App() {
   const [roomno, setRoomno] = React.useState("")
   const [id, setId]=React.useState([])
   const [num, setNum]=React.useState("")
+  const [style, setStyle]=React.useState({})
+
 
   const joinRoom=()=>{
     if(room!==""&& userName!==""){
+      setStyle({display:'none'})
       socket.emit("join_room",room,userName)
       socket.on("Number",(data)=>{
         setNum(data)
@@ -80,7 +83,9 @@ function App() {
       </div>
 
       <div className=' bg-gray-800 h-20 w-auto text-emerald-400 text-center p-5 text-xl font-semibold border-2 border-emerald-400 rounded-xl m-2 duration-300 mt-10'>
-      <input className='bg-gray-600 px-2' placeholder=' Enter User Name:' 
+      <input id="UserNameField" 
+       style={style} 
+      className='bg-gray-600 px-2' placeholder=' Enter User Name:' 
      onChange={(event)=>{
       setUserName(event.target.value)
      }}/>
