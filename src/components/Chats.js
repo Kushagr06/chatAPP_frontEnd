@@ -15,7 +15,7 @@ function Chats(props) {
     // }
     props.socket.on("downloading_chats",(user)=>{
 
-      setReceivedM((list)=>[...list, {room:props.room, author:"SystemAdmin", message:`Warning! User: ${user} has downloaded the chats`}]);
+      setReceivedM((list)=>[...list, {room:props.room, author:"", message:`Warning!User:${user} has downloaded the chats`}]);
     });
     }, [props.socket])
 
