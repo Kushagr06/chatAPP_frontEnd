@@ -42,7 +42,7 @@ function App() {
   socket.on("newUser", (data,name) => {
     setId((list)=>[...list, 
       data===socket.id?
-      `${'<<'+data+'>>'+name}(you) just joined....`
+      `${'<<'+data+'>>'+name} (you) just joined....`
       :
       `${'<<'+data+'>>'+name} joined the room`
     ]); // world
