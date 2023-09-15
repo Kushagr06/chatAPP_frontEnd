@@ -75,7 +75,7 @@ function App() {
 
   return (
     <div className="App text-2xl bg-gray-900 m-0 flex-col min-h-[100vh] p-0 overflow-auto ">
-      
+      {console.log(SERVER_URL)}
       <div className=' flex justify-around mx-10 mb-10'>
 
       <div className='relative bg-gray-800 h-20 w-20 text-emerald-400 text-center p-5 text-xl font-semibold border-2 border-emerald-400 rounded-xl m-2 duration-300 mt-10'>
