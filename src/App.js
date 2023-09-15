@@ -3,8 +3,9 @@ import io from 'socket.io-client'
 import React,{useRef} from "react"
 import Chats from './components/Chats';
 
+const SERVER_URL=process.env.REACT_APP_SERVER
 
-const socket=io.connect("http://localhost:3001")
+const socket=io.connect(SERVER_URL)
 
 function App() {
 
@@ -62,7 +63,7 @@ function App() {
 
   const ref=useRef(null);
   const ScrolltoBottom=()=>{
-    console.log(ref.current)
+    // console.log(ref.current)
     ref.current?.scrollIntoView({behavior:'smooth'})
   }
   React.useEffect(()=>{
@@ -74,6 +75,7 @@ function App() {
 
   return (
     <div className="App text-2xl bg-gray-900 m-0 flex-col min-h-[100vh] p-0 overflow-auto ">
+      
       <div className=' flex justify-around mx-10 mb-10'>
 
       <div className='relative bg-gray-800 h-20 w-20 text-emerald-400 text-center p-5 text-xl font-semibold border-2 border-emerald-400 rounded-xl m-2 duration-300 mt-10'>
